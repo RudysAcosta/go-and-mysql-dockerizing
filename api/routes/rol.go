@@ -10,4 +10,5 @@ func InitRoutes(router *gin.Engine) {
 	// Create an instance of RolModel
 	rolModel := &models.RolModel{}
 	router.GET("/roles", handlers.RolesHandler(rolModel))
+	router.GET("/roles/:id", handlers.RolHandler(rolModel))
 }

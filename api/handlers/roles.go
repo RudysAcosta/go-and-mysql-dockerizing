@@ -1,10 +1,15 @@
 package handlers
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/rudysacosta/go-and-mysql-dockerizing/api/models"
 )
 
+// RolesHandler is a Gin handler function that handles requests to fetch all roles.
+// It takes a pointer to a role model (models.RolModel) as an argument.
+// It returns a Gin handler function that handles requests related to fetching all roles.
 func RolesHandler(rolModel *models.RolModel) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// Call List() method of RolModel
@@ -17,6 +22,32 @@ func RolesHandler(rolModel *models.RolModel) gin.HandlerFunc {
 
 		ctx.JSON(200, gin.H{
 			"roles": roles,
+		})
+	}
+}
+
+// RolHandler is a Gin handler function that handles requests related to rol.
+// It takes a pointer to a role model (models.RolModel) as an argument.
+// It returns a Gin handler function that handles requests related to rol.
+func RolHandler(rolModel *models.RolModel) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		// Extract the ID from the request parameter and convert it to an integer.
+		id, err := strconv.Atoi(ctx.Param("id"))
+
+		if err != nil {
+			ctx.JSON(500, gin.H{"error": "id not valid"})
+			return
+		}
+
+		rol, err := rolModel.Get(id)
+
+		if err != nil {
+			ctx.JSON(500, gin.H{"error": "Failed to find the rol"})
+			return
+		}
+
+		ctx.JSON(200, gin.H{
+			"rol": rol,
 		})
 	}
 }

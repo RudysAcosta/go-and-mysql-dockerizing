@@ -1,0 +1,36 @@
+# Archivos ejecutables
+*.exe
+*.out
+*.dll
+
+# Archivos binarios
+*.bin
+*.dat
+
+# Archivos de configuración
+*.yaml
+*.yml
+
+# Archivos de dependencias
+/vendor/
+
+# Archivos de construcción
+/build/
+
+# Archivos de registro
+*.log
+
+# Archivos temporales
+*.tmp
+
+# Archivos generados por el editor de texto
+.vscode/
+.idea/
+
+# Archivos de respaldo
+*~
+
+# Binarios de sistema
+/System
+/bin
+/sbin

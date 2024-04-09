@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/gin-gonic/gin"
+	"github.com/rudysacosta/go-and-mysql-dockerizing/api/models"
+	"github.com/rudysacosta/go-and-mysql-dockerizing/api/routes"
 	"github.com/rudysacosta/go-and-mysql-dockerizing/config"
 	"github.com/rudysacosta/go-and-mysql-dockerizing/db"
 )
@@ -24,14 +27,19 @@ func main() {
 		fmt.Println("Failed to run migrations:", err)
 		os.Exit(1)
 	}
-
 	fmt.Println("Migrations completed successfully!")
 
-	// r := gin.Default()
+	models.SetDB(database)
+
+	r := gin.Default()
+	routes.InitRoutes(r)
+
+	// fmt.Printf("gin es: %T", r)
+
 	// r.GET("/ping", func(c *gin.Context) {
 	// 	c.JSON(200, gin.H{
 	// 		"message": "pong",
 	// 	})
 	// })
-	// r.Run()
+	r.Run()
 }

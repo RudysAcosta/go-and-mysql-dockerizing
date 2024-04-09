@@ -34,12 +34,5 @@ func main() {
 	r := gin.Default()
 	routes.InitRoutes(r)
 
-	// fmt.Printf("gin es: %T", r)
-
-	// r.GET("/ping", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{
-	// 		"message": "pong",
-	// 	})
-	// })
 	r.Run()
 }

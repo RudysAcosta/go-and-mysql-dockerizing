@@ -22,7 +22,7 @@ type RolModel struct {
 // var tableName string = "roles"
 func (rol *RolModel) List() ([]Rol, error) {
 	var roles []Rol
-	query := fmt.Sprintf("SELECT id, name, description FROM %s", tableName)
+	query := fmt.Sprintf("SELECT * FROM %s", tableName)
 	rows, err := dbConnection.Query(query)
 	if err != nil {
 		return nil, err
@@ -41,8 +41,22 @@ func (rol *RolModel) List() ([]Rol, error) {
 	return roles, nil
 }
 
-func (rol *RolModel) Get(id int) (Model, error) {
-	var myRol Rol
-	fmt.Println("RolModel Get")
-	return myRol, nil
-}
+// func (rol *RolModel) Get(id int) (Model, error) {
+// 	var myRol Rol
+// 	query := fmt.Sprintf("SELECT * FROM %s WHERE id=%d", tableName, id)
+
+// 	row := Rol{}
+
+// 	err = dbConnection.Get(&row, query)
+
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	defer row.Close()
+
+// 	fmt.Printf("\n\nGet rol: %v\n\n", row)
+
+// 	fmt.Println("RolModel Get")
+// 	return myRol, nil
+// }

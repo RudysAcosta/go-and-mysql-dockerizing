@@ -50,7 +50,7 @@ func (rolModel *RolModel) Get(id int) (Model, error) {
 	row := dbConnection.QueryRow(query)
 
 	// Scan the result of the query into the Rol struct
-	err := row.Scan(&rol.ID, &rol.Name, &rol.Description)
+	err := row.Scan(&rol.ID, &rol.Name, &rol.Description, &rol.CreatedAt, &rol.UpdatedAt)
 	if err != nil {
 
 		if err == sql.ErrNoRows {
@@ -63,17 +63,19 @@ func (rolModel *RolModel) Get(id int) (Model, error) {
 	return rol, nil
 }
 
-func (rolModel *RolModel) Create(rol *Rol) (uint64, error) {
+func (rolModel *RolModel) Create(rol *Rol) (sql.Result, error) {
 	// Construct the SQL query to insert a new role
 	query := "INSERT INTO " + tableName + " (name, description, created_at) VALUES (?, ?, ?)"
 
-	var id uint64
 	// Execute the SQL query with the provided values
-	err := dbConnection.QueryRow(query, rol.Name, rol.Description, time.Now()).Scan(&id)
+	resurt, err := dbConnection.Exec(query, rol.Name, rol.Description, time.Now())
+
 	if err != nil {
+		fmt.Printf("\n\n\n Entro en error \n")
 		fmt.Println(err)
-		return 0, err
+		fmt.Printf("")
+		return nil, err
 	}
 
-	return id, nil
+	return resurt, nil
 }

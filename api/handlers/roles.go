@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -15,8 +14,6 @@ func RolesHandler(rolModel *models.RolModel) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// Call List() method of RolModel
 		roles, err := rolModel.List()
-
-		fmt.Printf("\n\n\nError: %s \n\n", err)
 
 		if err != nil {
 			ctx.JSON(500, gin.H{"error": "Failed to fetch roles"})
@@ -65,9 +62,9 @@ func CreateHandler(rolModel *models.RolModel) gin.HandlerFunc {
 		}
 
 		// Call the Create method of RolModel to create the rol
-		id, err := rolModel.Create(&rol)
+		resurt, err := rolModel.Create(&rol)
 
-		fmt.Println(rol)
+		id, _ := resurt.LastInsertId()
 
 		if err != nil {
 			ctx.JSON(500, gin.H{"error": "failed to create rol"})

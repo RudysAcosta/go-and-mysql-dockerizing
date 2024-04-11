@@ -9,10 +9,6 @@ RUN go mod download
 
 COPY . .
 
-# Get CompileDaemon
-RUN go get github.com/githubnemo/CompileDaemon
-RUN go install github.com/githubnemo/CompileDaemon
-
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 FROM alpine:latest
@@ -27,4 +23,4 @@ COPY --from=builder /app/.env .
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
-ENTRYPOINT CompileDaemon -build="go build -o app" -command="./app"
+CMD ["./main"]

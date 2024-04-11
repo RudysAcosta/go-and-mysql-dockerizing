@@ -33,7 +33,7 @@ func (rolModel *RolModel) List() ([]Rol, error) {
 
 	for rows.Next() {
 		var rol Rol
-		if err := rows.Scan(&rol.ID, &rol.Name, &rol.Description); err != nil {
+		if err := rows.Scan(&rol.ID, &rol.Name, &rol.Description, &rol.CreatedAt, &rol.UpdatedAt); err != nil {
 			return nil, err
 		}
 

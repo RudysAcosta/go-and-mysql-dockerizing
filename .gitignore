@@ -7,9 +7,6 @@
 *.bin
 *.dat
 
-# Archivos de configuración
-*.yaml
-*.yml
 
 # Archivos de dependencias
 /vendor/

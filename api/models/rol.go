@@ -62,3 +62,18 @@ func (rolModel *RolModel) Get(id int) (Model, error) {
 
 	return rol, nil
 }
+
+func (rolModel *RolModel) Create(rol *Rol) (uint64, error) {
+	// Construct the SQL query to insert a new role
+	query := "INSERT INTO " + tableName + " (name, description, created_at) VALUES (?, ?, ?)"
+
+	var id uint64
+	// Execute the SQL query with the provided values
+	err := dbConnection.QueryRow(query, rol.Name, rol.Description, time.Now()).Scan(&id)
+	if err != nil {
+		fmt.Println(err)
+		return 0, err
+	}
+
+	return id, nil
+}
